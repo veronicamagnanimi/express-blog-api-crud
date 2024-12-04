@@ -42,7 +42,7 @@ const modify = (req, res) => {
 
 //destroy --> DELETE
 const destroy = (req, res) => {
-    const postId = 2;
+    const postId = parseInt(req.params.id);
     const arrayIndex = arrayPosts.findIndex((curArray) => curArray.id === postId); //trovo l'indice dell'array
     if (arrayIndex === -1) {
         res.statusCode(404);
@@ -51,11 +51,12 @@ const destroy = (req, res) => {
         })
     } else {
     arrayPosts.splice(arrayIndex, 1);
+    console.log(arrayPosts);
     res.sendStatus(204);
  }
 }
 
-console.log(arrayPosts);
+
 
 
 //////ESPORTO TUTTO///////
