@@ -11,11 +11,12 @@ const index = (req, res) => {
 const show = (req, res) => {
     const postId = parseInt(req.params.id);
     const findPost = arrayPosts.find(curItem => curItem.id === postId);
-    if(findPost) {
-    res.json(findPost)}
-    else {
-        res.json(`Il post con id ${postId} non esiste`)
-    };
+    if (findPost === undefined) {
+      res.statusCode = 404;
+      res.send(`Il post con id ${postId} non esiste`);
+    } else {
+        res.json(findPost);
+    }
 }
 
 
@@ -41,9 +42,20 @@ const modify = (req, res) => {
 
 //destroy --> DELETE
 const destroy = (req, res) => {
-    const postId = req.params.id;
-    res.json("Cancellazione del post " + postId);
+    const postId = 2;
+    const arrayIndex = arrayPosts.findIndex((curArray) => curArray.id === postId); //trovo l'indice dell'array
+    if (arrayIndex === -1) {
+        res.statusCode(404);
+        res.json({
+            message: "Post non trovato"
+        })
+    } else {
+    arrayPosts.splice(arrayIndex, 1);
+    res.sendStatus(204);
+ }
 }
+
+console.log(arrayPosts);
 
 
 //////ESPORTO TUTTO///////
