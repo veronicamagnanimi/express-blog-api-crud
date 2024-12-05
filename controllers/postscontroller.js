@@ -13,7 +13,7 @@ const show = (req, res) => {
     const findPost = arrayPosts.find(curItem => curItem.id === postId);
     if (findPost === undefined) {
       res.statusCode = 404;
-      res.send(`Il post con id ${postId} non esiste`);
+      res.json(`Il post con id ${postId} non esiste`);
     } else {
         res.json(findPost);
     }
@@ -49,7 +49,13 @@ const destroy = (req, res) => {
         res.json({
             message: "Post non trovato"
         })
-    } else {
+
+    } else if (arrayIndex === undefined) {
+            res.statusCode = 404;
+            res.json(`Il post con id ${postId} non esiste`);
+    }
+    
+    else {
     arrayPosts.splice(arrayIndex, 1);
     console.log(arrayPosts);
     res.sendStatus(204);

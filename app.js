@@ -4,6 +4,9 @@ const app = express();
 const port = 3000;
 const postsRouter = require("./routers/posts");
 
+//nuovo post 
+app.use(express.json());
+
 //cartella immagini pubbliche
 app.use(express.static("public"));
 
