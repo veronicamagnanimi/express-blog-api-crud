@@ -23,7 +23,11 @@ const show = (req, res) => {
 //create --> POST
 const create = (req, res) => {
     console.log(req.body);
-    res.json("Creazione del nuovo post");
+    const newPost = req.body;
+    newPost.id = arrayPosts[arrayPosts.length - 1].id + 1;
+    arrayPosts.push(newPost);
+    res.status(201);  //stato per qualcosa di nuovo
+    res.json(newPost);
 }
 
 
