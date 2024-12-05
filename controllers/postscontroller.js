@@ -24,7 +24,7 @@ const show = (req, res) => {
 const create = (req, res) => {
     console.log(req.body);
     const newPost = req.body;
-    newPost.id = arrayPosts[arrayPosts.length - 1].id + 1;
+    newPost.id = arrayPosts[arrayPosts.length - 1].id + 1; //calcolo il successivo id
     arrayPosts.push(newPost);
     res.status(201);  //stato per qualcosa di nuovo
     res.json(newPost);
@@ -33,8 +33,13 @@ const create = (req, res) => {
 
 //update --> PUT
 const update = (req, res) => {
-    const postId = req.params.id;
-    res.json("Aggiornamento del post " + postId);
+    const postId = parseInt(req.params.id);
+    const newPost = req.body;
+    console.log(newPost);
+    const indexToUpdate = arrayPosts.findIndex((curPost) => curPost.id === postId); //trovo l'indice da modificare
+    newPost.id = postId;
+    arrayPosts[indexToUpdate] = newPost;
+    res.json(newPost);
 }
 
 
