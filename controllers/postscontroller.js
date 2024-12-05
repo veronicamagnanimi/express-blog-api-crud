@@ -22,6 +22,7 @@ const show = (req, res) => {
 
 //create --> POST
 const create = (req, res) => {
+    console.log(req.body);
     res.json("Creazione del nuovo post");
 }
 
@@ -49,12 +50,7 @@ const destroy = (req, res) => {
         res.json({
             message: "Post non trovato"
         })
-
-    } else if (arrayIndex === undefined) {
-            res.statusCode = 404;
-            res.json(`Il post con id ${postId} non esiste`);
     }
-    
     else {
     arrayPosts.splice(arrayIndex, 1);
     console.log(arrayPosts);
