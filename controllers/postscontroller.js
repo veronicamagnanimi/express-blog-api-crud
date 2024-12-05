@@ -3,7 +3,11 @@ const arrayPosts = require("../posts");
 
 //index --> GET
 const index = (req, res) => {
-    res.json(arrayPosts);
+    let filterPosts = posts;
+    if (req.query.tag) {
+        filterPosts = posts.filter((curPosts) => curPosts.tags.includes(req.query.tag.toLowerCase()))
+    }
+    res.json(filterPosts);
 }
 
 
@@ -11,7 +15,7 @@ const index = (req, res) => {
 const show = (req, res) => {
     const postId = parseInt(req.params.id);
     const findPost = arrayPosts.find(curItem => curItem.id === postId);
-    if (findPost === undefined) {
+    if (!findPost) {
       res.statusCode = 404;
       res.json(`Il post con id ${postId} non esiste`);
     } else {
@@ -37,10 +41,17 @@ const update = (req, res) => {
     const newPost = req.body;
     console.log(newPost);
     const indexToUpdate = arrayPosts.findIndex((curPost) => curPost.id === postId); //trovo l'indice da modificare
+    if(indexToUpdate === -1) {
+        res.statusCode(404);
+        res.json({
+            message: `Il post con ID ${postId} non esiste`
+        })
+    } else {
     newPost.id = postId;
     arrayPosts[indexToUpdate] = newPost;
     res.json(newPost);
-}
+    }
+   }
 
 
 //modify --> PATCH
