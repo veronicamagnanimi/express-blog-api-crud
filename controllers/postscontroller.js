@@ -15,13 +15,8 @@ const index = (req, res) => {
 const show = (req, res) => {
     const postId = parseInt(req.params.id);
     const findPost = arrayPosts.find(curItem => curItem.id === postId);
-    if (!findPost) {
-      res.statusCode = 404;
-      res.json(`Il post con id ${postId} non esiste`);
-    } else {
         res.json(findPost);
     }
-}
 
 
 //create --> POST
@@ -41,17 +36,10 @@ const update = (req, res) => {
     const newPost = req.body;
     console.log(newPost);
     const indexToUpdate = arrayPosts.findIndex((curPost) => curPost.id === postId); //trovo l'indice da modificare
-    if(indexToUpdate === -1) {
-        res.statusCode(404);
-        res.json({
-            message: `Il post con ID ${postId} non esiste`
-        })
-    } else {
     newPost.id = postId;
     arrayPosts[indexToUpdate] = newPost;
     res.json(newPost);
     }
-   }
 
 
 //modify --> PATCH
@@ -65,20 +53,10 @@ const modify = (req, res) => {
 const destroy = (req, res) => {
     const postId = parseInt(req.params.id);
     const arrayIndex = arrayPosts.findIndex((curArray) => curArray.id === postId); //trovo l'indice dell'array
-    if (arrayIndex === -1) {
-        res.statusCode(404);
-        res.json({
-            message: "Post non trovato"
-        })
-    }
-    else {
     arrayPosts.splice(arrayIndex, 1);
     console.log(arrayPosts);
     res.sendStatus(204);
  }
-}
-
-
 
 
 //////ESPORTO TUTTO///////

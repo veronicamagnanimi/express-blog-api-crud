@@ -8,6 +8,8 @@ const posts = require("../posts");
 //importo il file delle funzioni
 const postsController = require("../controllers/postscontroller");
 
+//importo middleware
+const postExists = require("../middleware/checkPostExsists");
 
 /////ESECUZIONE/////
 
@@ -15,16 +17,16 @@ const postsController = require("../controllers/postscontroller");
 router.get('/', postsController.index);
 
 //show --> GET
-router.get('/:id', postsController.show);
+router.get('/:id', postExists, postsController.show);
 
 //create --> POST
 router.post('/', postsController.create);
 
 //update --> PUT
-router.put('/:id', postsController.update);
+router.put('/:id', postExists, postsController.update);
 
 //modify --> PATCH
-router.patch('/:id', postsController.modify);
+router.patch('/:id', postExists, postsController.modify);
 
 //destroy --> DELETE
-router.delete('/:id', postsController.destroy);
+router.delete('/:id', postExists, postsController.destroy);
