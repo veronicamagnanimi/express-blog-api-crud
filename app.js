@@ -3,6 +3,7 @@ const posts = require("./posts");
 const app = express();
 const port = 3000;
 const postsRouter = require("./routers/posts");
+const handleErrors = require("./middleware/handleErrors");
 
 //nuovo post 
 app.use(express.json());
@@ -26,6 +27,7 @@ app.get('/bacheca', (req, res) => {
     });
 })
 
+app.use(handleErrors);
 
 app.listen(port, () => {
     console.log("Il server è partito")
