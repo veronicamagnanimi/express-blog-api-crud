@@ -1,9 +1,15 @@
 const express = require("express");
 const posts = require("./posts");
+const cors = require("cors");
 const app = express();
 const port = 3000;
 const postsRouter = require("./routers/posts");
 const handleErrors = require("./middleware/handleErrors");
+
+//middleware per il cors
+app.use(cors({
+    origin: 'http://localhost:5173/'
+}));
 
 //nuovo post 
 app.use(express.json());
